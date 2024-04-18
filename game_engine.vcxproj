@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{db690af8-7b0e-4721-b034-80eee52bec58}</ProjectGuid>
+    <RootNamespace>gameengine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)\libs\SDL2\include;$(SolutionDir)\libs\SDL2_ttf\include;$(SolutionDir)\libs\SDL2_mixer\include;$(SolutionDir)\libs\SDL2_image\include;$(SolutionDir)\LuaBridge;$(SolutionDir)\box2d-2.4.1\include\box2d;$(SolutionDir)\imgui;$(SolutionDir)\imgui\backends;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\SDL2\lib\x64;$(SolutionDir)\libs\SDL2_image\lib\x64;$(SolutionDir)\libs\SDL2_ttf\lib\x64;$(SolutionDir)\libs\SDL2_mixer\lib\x64;$SolutionDir)\box2d-2.4.1\build\bin\Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)\libs\SDL2\include;$(SolutionDir)\libs\SDL2_ttf\include;$(SolutionDir)\libs\SDL2_mixer\include;$(SolutionDir)\libs\SDL2_image\include;$(SolutionDir)\LuaBridge;$(SolutionDir)\box2d-2.4.1\include\box2d;$(SolutionDir)\imgui;$(SolutionDir)\imgui\backends;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\libs\SDL2\lib\x64;$(SolutionDir)\libs\SDL2_image\lib\x64;$(SolutionDir)\libs\SDL2_ttf\lib\x64;$(SolutionDir)\libs\SDL2_mixer\lib\x64;$SolutionDir)\box2d-2.4.1\build\bin\Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)/</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\SDL2\lib\x64;$(SolutionDir)\libs\SDL2_image\lib\x64;$(SolutionDir)\libs\SDL2_ttf\lib\x64;$(SolutionDir)\libs\SDL2_mixer\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;$(SolutionDir)\box2d-2.4.1\build\bin\Debug\box2d.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)/</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\libs\SDL2\lib\x64;$(SolutionDir)\libs\SDL2_image\lib\x64;$(SolutionDir)\libs\SDL2_ttf\lib\x64;$(SolutionDir)\libs\SDL2_mixer\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;$(SolutionDir)\box2d-2.4.1\build\bin\Debug\box2d.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy /Y "SDL2_image.dll" "$(OutDir)"
+copy /Y "SDL2.dll" "$(OutDir)"
+copy /Y "SDL2_ttf.dll" "$(OutDir)"
+copy /Y "SDL2_mixer.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AudioDB.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="EngineUtils.cpp" />
+    <ClCompile Include="Eventbus.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="headers\Source.cpp" />
+    <ClCompile Include="imgui\backends\imgui_impl_sdl2.cpp" />
+    <ClCompile Include="imgui\backends\imgui_impl_sdlrenderer2.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_demo.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui\imgui_tables.cpp" />
+    <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="MyContactListener.cpp" />
+    <ClCompile Include="RayCasting.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="ImageDB.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Lua\lapi.c" />
+    <ClCompile Include="Lua\lauxlib.c" />
+    <ClCompile Include="Lua\lbaselib.c" />
+    <ClCompile Include="Lua\lcode.c" />
+    <ClCompile Include="Lua\lcorolib.c" />
+    <ClCompile Include="Lua\lctype.c" />
+    <ClCompile Include="Lua\ldblib.c" />
+    <ClCompile Include="Lua\ldebug.c" />
+    <ClCompile Include="Lua\ldo.c" />
+    <ClCompile Include="Lua\ldump.c" />
+    <ClCompile Include="Lua\lfunc.c" />
+    <ClCompile Include="Lua\lgc.c" />
+    <ClCompile Include="Lua\linit.c" />
+    <ClCompile Include="Lua\liolib.c" />
+    <ClCompile Include="Lua\llex.c" />
+    <ClCompile Include="Lua\lmathlib.c" />
+    <ClCompile Include="Lua\lmem.c" />
+    <ClCompile Include="Lua\loadlib.c" />
+    <ClCompile Include="Lua\lobject.c" />
+    <ClCompile Include="Lua\lopcodes.c" />
+    <ClCompile Include="Lua\loslib.c" />
+    <ClCompile Include="Lua\lparser.c" />
+    <ClCompile Include="Lua\lstate.c" />
+    <ClCompile Include="Lua\lstring.c" />
+    <ClCompile Include="Lua\lstrlib.c" />
+    <ClCompile Include="Lua\ltable.c" />
+    <ClCompile Include="Lua\ltablib.c" />
+    <ClCompile Include="Lua\ltm.c" />
+    <ClCompile Include="Lua\lundump.c" />
+    <ClCompile Include="Lua\lutf8lib.c" />
+    <ClCompile Include="Lua\lvm.c" />
+    <ClCompile Include="Lua\lzio.c" />
+    <ClCompile Include="MainHelper.cpp" />
+    <ClCompile Include="my_game_engine.cpp">
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(ProjectDir)\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(ProjectDir)\libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp17</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_CRT_SECURE_NO_WARNINGS;_SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING;_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Template.cpp" />
+    <ClCompile Include="TextDB.cpp" />
+    <ClCompile Include="Vector2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Downloads\imgui_internal.h" />
+    <ClInclude Include="headers\Actor.h" />
+    <ClInclude Include="headers\AudioDB.h" />
+    <ClInclude Include="headers\Camera.h" />
+    <ClInclude Include="headers\EngineUtils.h" />
+    <ClInclude Include="headers\Eventbus.h" />
+    <ClInclude Include="headers\Game.h" />
+    <ClInclude Include="headers\GameState.h" />
+    <ClInclude Include="headers\Helper.h" />
+    <ClInclude Include="headers\ImageDB.h" />
+    <ClInclude Include="headers\Input.h" />
+    <ClInclude Include="headers\MainHelper.h" />
+    <ClInclude Include="headers\MyContactListener.h" />
+    <ClInclude Include="headers\RayCasting.h" />
+    <ClInclude Include="headers\Renderer.h" />
+    <ClInclude Include="headers\RigidBody.h" />
+    <ClInclude Include="headers\Scene.h" />
+    <ClInclude Include="headers\Template.h" />
+    <ClInclude Include="headers\TextDB.h" />
+    <ClInclude Include="headers\Vector2.h" />
+    <ClInclude Include="imgui\backends\imgui_impl_sdl2.h" />
+    <ClInclude Include="imgui\backends\imgui_impl_sdlrenderer2.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\imstb_rectpack.h" />
+    <ClInclude Include="imgui\imstb_textedit.h" />
+    <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="LuaBridge\Array.h" />
+    <ClInclude Include="LuaBridge\detail\CFunctions.h" />
+    <ClInclude Include="LuaBridge\detail\ClassInfo.h" />
+    <ClInclude Include="LuaBridge\detail\Config.h" />
+    <ClInclude Include="LuaBridge\detail\Constructor.h" />
+    <ClInclude Include="LuaBridge\detail\dump.h" />
+    <ClInclude Include="LuaBridge\detail\FuncTraits.h" />
+    <ClInclude Include="LuaBridge\detail\Iterator.h" />
+    <ClInclude Include="LuaBridge\detail\LuaException.h" />
+    <ClInclude Include="LuaBridge\detail\LuaHelpers.h" />
+    <ClInclude Include="LuaBridge\detail\LuaRef.h" />
+    <ClInclude Include="LuaBridge\detail\Namespace.h" />
+    <ClInclude Include="LuaBridge\detail\Security.h" />
+    <ClInclude Include="LuaBridge\detail\Stack.h" />
+    <ClInclude Include="LuaBridge\detail\TypeList.h" />
+    <ClInclude Include="LuaBridge\detail\TypeTraits.h" />
+    <ClInclude Include="LuaBridge\detail\Userdata.h" />
+    <ClInclude Include="LuaBridge\List.h" />
+    <ClInclude Include="LuaBridge\LuaBridge.h" />
+    <ClInclude Include="LuaBridge\Map.h" />
+    <ClInclude Include="LuaBridge\Optional.h" />
+    <ClInclude Include="LuaBridge\RefCountedObject.h" />
+    <ClInclude Include="LuaBridge\RefCountedPtr.h" />
+    <ClInclude Include="LuaBridge\UnorderedMap.h" />
+    <ClInclude Include="LuaBridge\Vector.h" />
+    <ClInclude Include="Lua\lua.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Lua\Makefile" />
+    <None Include="Makefile" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\Downloads\3-2\sdl_user_input.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
