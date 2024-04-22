@@ -9,6 +9,7 @@
 #include "headers/MainHelper.h"
 #include "headers/Eventbus.h"
 #include "headers/RigidBody.h"
+#include "headers/GameManager.h"
 #include <direct.h>  // Required for _mkdir on Windows
 #include <sys/stat.h>  // Required for mkdir on UNIX/Linux
 #include <sys/types.h>  // Additional types might be required
@@ -225,7 +226,7 @@ void RenderGameCreationWindow() {
         ImGui::Begin("Create Your Game", &showCreateGameWindow); // Pass a pointer to showCreateGameWindow to allow closing with the ImGui close button
         
         // Buttons for 13 sub-menus
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 14; i++) {
             char buf[32];  // Buffer to hold the button label
 
             if (i == 0) {
@@ -266,6 +267,9 @@ void RenderGameCreationWindow() {
             }
             else if (i == 12) {
                 sprintf(buf, "Vector2 %d", i + 1);
+            }
+            else if (i == 13) {
+                sprintf(buf, "GameManager %d", i + 1);
             }
 
             // Create a button with the label from buf
@@ -624,6 +628,43 @@ void RenderGameCreationWindow() {
             ImGui::Text("This class provides foundational mathematical functionalities for handling 2D vectors in game development, supporting both simple arithmetic and complex geometric calculations.");
         }
 
+        // Check if the active sub-menu is the thirteenth one (index 12, but we display as Sub-Menu 13)
+        if (activeSubMenu == 13) {
+            ImGui::Text("You are viewing Sub-Menu %d", activeSubMenu + 1);
+            ImGui::Separator();
+            ImGui::Text("Exporting GameManager Functions to Lua");
+            ImGui::Text("This section details exporting game management functions to Lua, enabling script-based interaction:");
+
+            // Detailed explanations
+            ImGui::Text("Available Functions:");
+            ImGui::BulletText("AddGame(game) - Adds a game to the list.");
+            ImGui::BulletText("DeleteGame(game) - Removes a game from the list.");
+            ImGui::BulletText("ListGames() - Displays all games in the list.");
+            ImGui::BulletText("FindGame(game_name) - Checks if a game exists in the list.");
+            ImGui::BulletText("SortGames() - Sorts the list of games alphabetically.");
+            ImGui::BulletText("RandomizeGames() - Shuffles the list of games.");
+            ImGui::BulletText("LoadGamesFromFile(filename) - Loads games from a specified file.");
+            ImGui::BulletText("SaveGamesToFile(filename) - Saves the current list of games to a file.");
+            ImGui::BulletText("CountGames() - Returns the number of games in the list.");
+            ImGui::BulletText("RemoveAllGames() - Clears the list of games.");
+            ImGui::BulletText("MergeLists(otherList) - Compares and merges another list into the current list.");
+
+            ImGui::Text("Example usage in Lua:");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "UI.AddGame('New Game')");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "UI.DeleteGame('Old Game')");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "local games = UI.ListGames()");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "local exists = UI.FindGame('Chess')");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "UI.SortGames()");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "UI.RandomizeGames()");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "UI.LoadGamesFromFile('games.txt')");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "UI.SaveGamesToFile('saved_games.txt')");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "local gameCount = UI.CountGames()");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "UI.RemoveAllGames()");
+            ImGui::TextColored(ImVec4(0.5, 0.8, 0.1, 1), "UI.MergeLists({'Game1', 'Game2'})");
+
+            ImGui::Text("These Lua bindings provide a robust interface for managing game lists through scripts, enhancing modularity and script-based controls.");
+        }
+
 
         ImGui::End();
     }
@@ -631,29 +672,28 @@ void RenderGameCreationWindow() {
 
 
 int selectedFolderIndex = 0;
-std::vector<std::string> folderList = { "ball_game", "donna_game" };
 static char newFolderName[128] = ""; // Buffer for folder name input
 static bool createFolderFlag = false; // Flag to trigger folder creation
 
 // In your ImGui rendering function
 void Renderer::RenderFolderSelection() {
-    ImGui::Begin("Folder Selection");
+    ImGui::Begin("Game Selection");
 
     std::vector<const char*> items;
-    for (const auto& folderName : folderList) {
+    for (const auto& folderName : GameManager::folderList) {
         items.push_back(folderName.c_str());
     }
 
 
-    if (ImGui::ListBox("Select Folder", &selectedFolderIndex, &items[0], items.size())) {
+    if (ImGui::ListBox("Select Game", &selectedFolderIndex, &items[0], items.size())) {
 
-        if (folderList[selectedFolderIndex] == gamePlaying) {
+        if (GameManager::folderList[selectedFolderIndex] == gamePlaying) {
             gameState = Game::Running;
             ImGui::End();
             return;
         }
        
-        gamePlaying = folderList[selectedFolderIndex];
+        gamePlaying = GameManager::folderList[selectedFolderIndex];
         Actor::clearAll();
         hardcoded_actors.clear();
         AudioDB::clearAll();
@@ -721,9 +761,17 @@ void Renderer::RenderFolderSelection() {
 
     }
 
+    ImGui::End();
+}
+
+
+void createNewGame() {
+
+    ImGui::Begin("Game Creation");
+
     ImGui::Separator();
-    ImGui::Text("Create New Folder:");
-    ImGui::InputText("Folder Name", newFolderName, IM_ARRAYSIZE(newFolderName));
+    ImGui::Text("Create New Game Folder:");
+    ImGui::InputText("Game Folder Name", newFolderName, IM_ARRAYSIZE(newFolderName));
     if (ImGui::Button("Create")) {
         if (strlen(newFolderName) > 0) { // Ensure the name is not empty
             createFolderFlag = true;
@@ -739,15 +787,121 @@ void Renderer::RenderFolderSelection() {
         else {
             std::cout << "Folder created successfully: " << folderPath << std::endl;
             // Optionally, add the new folder to your folder list and reset input
-            folderList.push_back(strdup(newFolderName)); // Make sure to manage the memory appropriately
+            GameManager::folderList.push_back(strdup(newFolderName)); // Make sure to manage the memory appropriately
             memset(newFolderName, 0, sizeof(newFolderName)); // Reset the input buffer
         }
         createFolderFlag = false; // Reset flag
     }
 
-
     ImGui::End();
 }
+
+void SeeGameCode(std::string currentPath) {
+    static std::string currentDir = currentPath; // Maintain the current directory path
+    static std::string selectedFile; // Path to the currently selected file
+    static std::string fileContents; // Contents of the selected file
+
+    ImGui::Begin("Directory Viewer");
+
+    // Button to go up one directory level
+    if (ImGui::Button("Go Up") && currentDir != std::filesystem::path(currentDir).root_path()) {
+        currentDir = std::filesystem::path(currentDir).parent_path().string();
+        selectedFile.clear(); // Clear selected file when changing directory
+        fileContents.clear(); // Clear contents
+    }
+
+    ImGui::Separator();
+
+    // Iterate over the directory entries
+    try {
+        for (const auto& entry : std::filesystem::directory_iterator(currentDir)) {
+            const auto& path = entry.path();
+            std::string filename = path.filename().string();
+
+            // Push a unique ID to avoid conflicts in ImGui
+            ImGui::PushID(filename.c_str());
+
+            if (entry.is_directory()) {
+                // Directory entries as buttons
+                if (ImGui::Button(filename.c_str())) {
+                    currentDir = path.string();  // Navigate into the directory
+                    selectedFile.clear(); // Clear selected file when changing directory
+                    fileContents.clear(); // Clear contents
+                }
+            }
+            else {
+                // File entries as clickable buttons
+                if (ImGui::Button(filename.c_str())) {
+                    selectedFile = path.string();
+                    // Open and read the file contents
+                    std::ifstream file(selectedFile);
+                    std::stringstream buffer;
+                    buffer << file.rdbuf();
+                    fileContents = buffer.str(); // Store the contents in a string
+                }
+            }
+
+            ImGui::PopID();
+        }
+    }
+    catch (const std::filesystem::filesystem_error& e) {
+        ImGui::Text("Error accessing path: %s", e.what());
+    }
+
+    // Declare a buffer size constant for new file creation and file editing
+    const size_t bufferSize = 1024 * 16;  
+    static char buffer[bufferSize] = "";
+
+    if (!selectedFile.empty()) {
+        ImGui::Separator();
+        ImGui::BeginChild("FileEditor", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()), true); // Begin a scrollable region
+
+        // Copy the file contents to the buffer for editing
+        std::strncpy(buffer, fileContents.c_str(), sizeof(buffer));
+        // Ensure null termination
+        buffer[sizeof(buffer) - 1] = '\0';
+
+        // Editable text box
+        if (ImGui::InputTextMultiline("##editor", buffer, bufferSize, ImVec2(-1, -1))) {
+            // Set the flag that the content has been edited
+            // Later you can use this to prompt for saving if needed
+            fileContents.assign(buffer);  // Update fileContents with the edited text
+        }
+
+        ImGui::EndChild(); // End scrollable region
+
+        // Button to save the edited content back to the file
+        if (ImGui::Button("Save")) {
+            // Save the buffer to the file
+            std::ofstream out(selectedFile);
+            out << fileContents;
+            out.close();
+        }
+    }
+    ImGui::End();
+
+    // Input for creating new file
+    static char newFileName[256] = "";
+    ImGui::InputText("New File Name", newFileName, IM_ARRAYSIZE(newFileName));
+    ImGui::SameLine();
+    if (ImGui::Button("Create File")) {
+        std::string newFilePath = currentDir + "/" + std::string(newFileName);
+        std::ofstream outFile(newFilePath);
+        if (outFile) {
+            // Optionally clear the buffer if you want to reuse it for the new file
+            memset(buffer, 0, sizeof(buffer));
+            outFile.close();
+            selectedFile = newFilePath; // Select the new file for editing
+            fileContents.clear();       // Clear the previous contents
+        }
+        else {
+            // Handle the error, e.g., show an error message
+        }
+        memset(newFileName, 0, sizeof(newFileName)); // Clear the new file name buffer
+    }
+}
+
+
 
 void Renderer::ProcessInput(glm::vec2 &movementDirection) {
     SDL_Event e;
@@ -824,7 +978,9 @@ void Renderer::ProcessInput(glm::vec2 &movementDirection) {
     RenderCreateGames();
     RenderFolderSelection();
     RenderGameCreationWindow();
-
+    createNewGame();
+    SeeGameCode("C:\\Users\\porve\\source\\repos\\game_engine\\resources");
+ 
     // Rendering
     ImGui::Render();
     SDL_SetRenderDrawColor(renderer, 114, 144, 154, 255);

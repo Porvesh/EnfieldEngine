@@ -4,6 +4,7 @@
 #include "headers/MyContactListener.h"
 #include "headers/RayCasting.h"
 #include "headers/Eventbus.h"
+#include "headers/GameManager.h"
 
 
 lua_State* LuaHelper::L;
@@ -270,6 +271,23 @@ void exportEventBusToLua(lua_State* L) {
         .endClass();
 }
 
+void exportGameToLua(lua_State* L) {
+    luabridge::getGlobalNamespace(L)
+        .beginNamespace("UI")
+        .addFunction("AddGame", &GameManager::AddGame)
+        .addFunction("DeleteGame", &GameManager::DeleteGame)
+        .addFunction("ListGames", &GameManager::ListGames)
+        .addFunction("FindGame", &GameManager::FindGame)
+        .addFunction("SortGames", &GameManager::SortGames)
+        .addFunction("RandomizeGames", &GameManager::RandomizeGames)
+        .addFunction("LoadGamesFromFile", &GameManager::LoadGamesFromFile)
+        .addFunction("SaveGamesToFile", &GameManager::SaveGamesToFile)
+        .addFunction("CountGames", &GameManager::CountGames)
+        .addFunction("RemoveAllGames", &GameManager::RemoveAllGames)
+        .addFunction("MergeLists", GameManager::CompareAndMergeLists)
+        .endNamespace();
+}
+
 void LuaHelper::initialiseLuaState() {
     L = luaL_newstate();
     luaL_openlibs(L);
@@ -289,6 +307,8 @@ void LuaHelper::initialiseLuaState() {
     exportEventBusToLua(L);
     loadAndCacheAllBaseTables();
 }
+
+
 
 
 void LuaHelper::loadAndCacheAllBaseTables() {
